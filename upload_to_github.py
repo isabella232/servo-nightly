@@ -68,7 +68,7 @@ def upload_and_replace_archive(release_id, upload_url):
 
 
 if __name__ == "__main__":
-    release_api_url = 'https://api.github.com/repos/mmatyas/servo-nightly/releases'
+    release_api_url = 'https://api.github.com/repos/larsbergstrom/servo-nightly/releases'
     subprocess.check_call(['git', 'fetch', '--tags'])
 
     last_tag = subprocess.check_output(['git', 'describe', '--abbrev=0', '--tags']).strip()
