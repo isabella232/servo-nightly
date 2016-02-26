@@ -44,7 +44,7 @@ cache:
 env:
   global:
   - CCACHE=/usr/bin/ccache
-  - secure: "gBwC2ZbWXWO56NhGPtJMAO+kBRHzU9YoiA52QCbR2GqKOYqAyWZeCh5UYqxY6dCMA+vXXhZsKXrZ0847wIpGyParp7VkZ51wE0r0Ngp0tMUG7lmnV6wJEkWB8mrAOpz13qkBK/8UB4rXcTrIFXXO9m+M+EPXGPUsOBUGCg6ev3WUSVC+EBDM7JPbnjuWreyVNlL6nm66GCjDoe/Rwp1x8hLz3FZq40A/3Xee/Xh68aBZCaKKU15+srXet/foWMOWkuLrNkuXKiZtUnB+t4ucaaj3qUIPX4LyII4PV1W+DAcwXghPn2I7VzjDxqK5c+XCB4lZIry22V7Z5j3iujegYdZHolvVgb4Y8w5e/Uf9BfZzHaHbtwyrb8hNZnbKKMWfvuoc2fE2a91cSaybwDpDuVSC4acqXlRLvPFLTI9K0FARakH5//n0Y//xNyBxmEKb22oe6M4J/Regs5pS3Ln0INRSp1LEZVHLunTVLiG8GBy84md8FM/nQ1xXwfva6LJd3IjaZyDSEwSv1ceabawuKZoHbDM7Nq0gQ+Yex3OW9if5OG9OzJYUhfLMEyRgWRn2saiL5etsoNyno1hQOWBDyOeE/9wlAsTUdb/frnSF71EiO02k9bUSYPkZky6MjHGJb4DvHU104RKN+0jBHj9a3+AxzghhCCi7IAWtf922WS0="
+  - secure: "Bd4DVfGB4wWpR9ar0t0/9jMASvphpftvPMJ655zi3ai7xLpmlmC45k8olVI6LWPB0nJEb0cd95cvpMhI9L1IKV5Ojfd+nmY4bcYg4wF209iXgCmT1wmTSF2x3hmyXE1sFjjXglQc8YVN/Omb44S6TS5wx9YSGO51u8XWvyHgSAvpEvjbBH8ZzocMXg/djAMljoaT7Fu/S96B5yDEi2THqAECCbWWUvt0iAw6HyDw0f8Ug+23Mv0/Tb/kKBZcfU/muSecoJabb1xD4JSt3FAwA8s/6GDGTjIsQuxD5HwHQ6xAu7uuSr3NuuQIpDQGBO8dZECi4HqqpmPeI5ihlmrqVseiGntWkhR1ANCgVmEvR2IAVaneQKuCM//lwmGM3gj6ui5f+3j+uEz/mYyQIn5GutLPGByw2xVqD0fi9x7ON7+i5bdU3f9PJ60uTu9/Y6X9U9IYVREJ9SliyFNziotJMvxqLbWc2Xzn/bBHa93UG8olepbmzomOHZmD+XgOxp0YZDIMv8OQnacpNah4oN1jjRKsveVkr4uF2Ov6Pccts1Tvac6KqcTSbZV1vH2+2q9F6Kp56SKF+RtSelogeq2nREwSXcL4I0HnBiUujp65X7Tmm5DEfruD8OEEdA2AQhr2mKmtExxKwDA5VkX9feZACGqpl511syymrZR7+dr4B9E="
 
 matrix:
   include:
@@ -72,7 +72,7 @@ matrix:
     - mkdir $HOME/bin
     - for f in /usr/bin/arm-linux-*; do f2=$(basename $f); ln -s $f $HOME/bin/${f2/-linux/-unknown-linux}; done
     # download and link system libs
-    - wget https://github.com/mmatyas/mmatyas.github.io/releases/download/arm-libs/armhf-trusty-libs.tgz
+    - wget https://servo-rust.s3.amazonaws.com/ARM/armhf-trusty-libs.tgz
     - mkdir rootfs-trusty-armhf
     - tar xzf armhf-trusty-libs.tgz -C rootfs-trusty-armhf
     - sudo ln -s $(pwd)/rootfs-trusty-armhf/usr/include/arm-linux-gnueabihf /usr/include/arm-linux-gnueabihf
@@ -88,7 +88,7 @@ matrix:
     - mkdir $HOME/bin
     - for f in /usr/bin/aarch64-linux-*; do f2=$(basename $f); ln -s $f $HOME/bin/${f2/-linux/-unknown-linux}; done
     # download and link system libs
-    - wget https://github.com/mmatyas/mmatyas.github.io/releases/download/arm-libs/arm64-trusty-libs.tgz
+    - wget https://servo-rust.s3.amazonaws.com/ARM/arm64-trusty-libs.tgz
     - mkdir rootfs-trusty-arm64
     - tar xzf arm64-trusty-libs.tgz -C rootfs-trusty-arm64
     - sudo ln -s $(pwd)/rootfs-trusty-arm64/usr/include/aarch64-linux-gnu /usr/include/aarch64-linux-gnu
