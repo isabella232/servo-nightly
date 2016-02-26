@@ -47,9 +47,16 @@ env:
   - secure: "WQBiFV7vvZ4kCnuPVPvKP1ztx762+UFvo6iVJEB9foV0Orh8HxMzwlpaVHqAtj0blMTti9EutsARkLI7+Dxw8nsTrTUao1svgNuP8dUblOOuy1QOxA01ddUNhXCDMt50Oye5/BFtIujtFMcr0YBTZhpcBWBqgECmWRS8W2ByKIZ/6d9cQ7EcDIvRn6XhGosHAKg7/0qAOsCskehA2V6XKsJEUW2mOlAj++OTii1oSYMKguznyKfMYfse/jaukJfhmplYxacaUPQP3AhNgEUG/+2O5jkmS/r+4hd9xoHXWyDYoZT/ffB3+lohabg9KnRDEqSSRUso+xDU2Kf6Cci9fMD1IL5VQ9+dTDv0u7Bt5Xbhu7zY+a3YJi2s6Sh9ZQ+qvOhzzlusDJN3rsELk/ecSUYAaVuzyM5+qDq8zWkPSR3P4CIpTjKtI2oOQ2ONlWOFo80+YzNP6D8lHSZnn2ItIlxLHoyEp1gBYxCctjNvkj/2mSXWai85emxh+e/cG/F21X1yKok0mCSxr2qaOSE7Xb+NkDL1DaQtGiK87weXj8gs14XgDTAawrAneEie2hmfZLAp5IqRz0ekitWGI7Yya3DnUrW8yO5p4uWGHJF9MTgnE8WeBR93xfJaTvVUSgKC0f8H2V8NqBEZ6bQgr+NQ1rSIgettchpFmSVZnbWuksg="
 
 matrix:
+  # Clear the whole matrix
+  exclude:
+  - os: linux
+  - os: osx
+
+
   include:
   # Source only
-  - env:
+  - os: linux
+    env:
     - BUILD_TARGET=source
     script:
     - git clone https://github.com/servo/servo --depth=1
@@ -60,11 +67,13 @@ matrix:
     - ./upload_to_github.py
 
   # x86_64
-  - env:
+  - os: linux
+    env:
     - BUILD_TARGET=x86_64-unknown-linux-gnu TRIPLET=x86_64-linux-gnu
 
   # ARM
-  - env:
+  - os: linux
+    env:
     - BUILD_TARGET=arm-unknown-linux-gnueabihf TRIPLET=arm-linux-gnueabihf
     - PKG_CONFIG_ALLOW_CROSS=1 PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig
     - EXPAT_NO_PKG_CONFIG=1 FREETYPE2_NO_PKG_CONFIG=1 FONTCONFIG_NO_PKG_CONFIG=1
@@ -80,7 +89,8 @@ matrix:
     - sudo ln -s $(pwd)/rootfs-trusty-armhf/lib/arm-linux-gnueabihf /lib/arm-linux-gnueabihf
 
   # AArch64
-  - env:
+  - os: linux
+    env:
     - BUILD_TARGET=aarch64-unknown-linux-gnu TRIPLET=aarch64-linux-gnu
     - PKG_CONFIG_ALLOW_CROSS=1 PKG_CONFIG_PATH=/usr/lib/aarch64-linux-gnu/pkgconfig
     - EXPAT_NO_PKG_CONFIG=1 FREETYPE2_NO_PKG_CONFIG=1 FONTCONFIG_NO_PKG_CONFIG=1
@@ -98,7 +108,8 @@ matrix:
     - sudo rm /usr/bin/ld.gold
 
   # Android
-  - env:
+  - os: linux
+    env:
     - BUILD_TARGET=android TRIPLET=arm-linux-androideabi
     before_script:
     - source setup_android.sh
@@ -106,6 +117,19 @@ matrix:
     - git clone https://github.com/servo/servo --depth=1
     - cd servo
     - ./mach build --rel --android
+
+  # OSX
+  - os: osx
+    before_script:
+    - brew install automake pkg-config python cmake openssl
+    - brew link --force openssl
+    - pip install virtualenv
+    env:
+    - BUILD_TARGET=x86_64-apple-darwin TRIPLET=x86_64-apple-darwin
+    script:
+    - git clone https://github.com/servo/servo --depth=1
+    - cd servo
+    - ./mach build -r
 
 script:
   - export CC=$TRIPLET-gcc
