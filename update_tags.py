@@ -53,8 +53,8 @@ def create_new_git_tag_if_not_latest():
 
 
 if __name__ == "__main__":
-    release_api_url = 'https://api.github.com/repos/larsbergstrom/servo-nightly/releases'
+    release_api_url = 'https://api.github.com/repos/servo/servo-nightly/releases'
     subprocess.check_call(['git', 'fetch', '--tags'])
-    subprocess.check_call(['git', 'remote', 'set-url', 'origin', 'https://' + os.environ['GITHUB_TOKEN'] + ':x-oauth-basic@github.com/larsbergstrom/servo-nightly.git'])
+    subprocess.check_call(['git', 'remote', 'set-url', 'origin', 'https://' + os.environ['GITHUB_TOKEN'] + ':x-oauth-basic@github.com/servo/servo-nightly.git'])
 
     print "Latest tag: " + create_new_git_tag_if_not_latest()

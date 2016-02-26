@@ -1,7 +1,7 @@
 
 # servo-nightly
 
-[![Build Status](https://travis-ci.org/larsbergstrom/servo-nightly.svg?branch=master)](https://travis-ci.org/larsbergstrom/servo-nightly), nightly builds [here](https://github.com/larsbergstrom/servo-nightly/releases)
+[![Build Status](https://travis-ci.org/servo/servo-nightly.svg?branch=master)](https://travis-ci.org/servo/servo-nightly), nightly builds [here](https://github.com/servo/servo-nightly/releases)
 
 This repo contains my scripts for automatic build testing on Travis.
 
